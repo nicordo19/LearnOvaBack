@@ -52,7 +52,7 @@ backend/
 │       ├── service
 │       │   └── UserService.java
 │       │
-│       ├── repository
+│       ├── rncp.backend.repository
 │       │   └── UserRepository.java
 │       │
 │       └── entity
