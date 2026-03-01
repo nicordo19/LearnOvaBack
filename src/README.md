@@ -52,7 +52,7 @@ backend/
 │       ├── service
 │       │   └── UserService.java
 │       │
-│       ├── repository
+│       ├── rncp.backend.repository
 │       │   └── UserRepository.java
 │       │
 │       └── entity
@@ -119,9 +119,9 @@ Hibernate en mode sécurisé :`docker compose -f docker-compose.prod.yml up -d`
 
 ### Lancer le backend SANS Docker
 
-DEV :  `./mvnw spring-boot:run -Dspring-boot.run.profiles=dev`
+DEV :  `mvn spring-boot:run -Dspring-boot.run.profiles=dev`
 
-PROD :  `./mvnw spring-boot:run -Dspring-boot.run.profiles=prod `
+PROD :  `mvn spring-boot:run -Dspring-boot.run.profiles=prod`
 
 ## Base de données & Migrations
 
