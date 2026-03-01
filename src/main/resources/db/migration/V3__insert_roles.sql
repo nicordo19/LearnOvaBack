@@ -1,0 +1,2 @@
+INSERT INTO role (rol_name) VALUES ('ETUDIANT');
+INSERT INTO role (rol_name) VALUES ('PROFESSEUR');
