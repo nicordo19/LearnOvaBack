@@ -8,6 +8,7 @@ import rncp.backend.sevice.UserService;
 @RestController
 
 @RequestMapping("/api/users")
+
 public class UserController {
 
     private final UserService userService;
@@ -21,5 +22,9 @@ public class UserController {
     public User createUser(@RequestBody RegisterRequest request) {
 
         return userService.createUser(request);
+    }
+    @GetMapping("/profile")
+    public String prifile(){
+        return "Accés autorisé";
     }
 }

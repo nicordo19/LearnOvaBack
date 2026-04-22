@@ -14,32 +14,39 @@ import rncp.backend.repository.UserRepository;
 import java.util.Optional;
 @Service
 public class AuthService {
+
 // ingection de dependance
 
-private UserRepository userRepository;
+  private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+  private final JwtService jwtService;
 
-  public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+
+  public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
       this.userRepository = userRepository;
       this.passwordEncoder = passwordEncoder;
+      this.jwtService = jwtService;
   }
-    public ResponseEntity<LoginResponse> login(LoginRequest request) {
+    public ResponseEntity<LoginResponse> login(LoginRequest loginRequest) {
+
+      String token = jwtService.generateToken(loginRequest.getEmail());
+      System.out.println(token);
 
         // 1. Vérifier si l'utilisateur existe
-        Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
+        Optional<User> userOptional = userRepository.findByEmail(loginRequest.getEmail());
 
         if (userOptional.isEmpty()) {
-            return ResponseEntity.status(401).body(new LoginResponse("Invalid email or password"));
+            return ResponseEntity.status(401).body(new LoginResponse(token,"Invalid email or password"));
         }
 
         User user = userOptional.get();
 
         // 2. Vérifier le mot de passe
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            return ResponseEntity.status(401).body(new LoginResponse("Invalid email or password"));
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            return ResponseEntity.status(401).body(new LoginResponse(token,"Invalid email or password"));
         }
 
         // 3. Succès
-        return ResponseEntity.ok(new LoginResponse("login reussit"));
+        return ResponseEntity.ok(new LoginResponse(token, "accés Succés"));
     }
 }

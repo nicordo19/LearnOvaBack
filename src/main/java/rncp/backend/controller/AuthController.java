@@ -1,4 +1,6 @@
 package rncp.backend.controller;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +13,7 @@ import rncp.backend.entity.User;
 import rncp.backend.sevice.AuthService ;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("api/auth")
 
 public class AuthController {
 //injection de dépendance
@@ -24,12 +26,26 @@ public class AuthController {
 // point d'entrée vers le back
 
     @PostMapping("/login")
-    //ResponceEntity permet de controler les requette http
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(
+            @RequestBody LoginRequest loginRequest,
+            HttpServletResponse response) {
 
-        //renvois vers le service
-        return authService.login(loginRequest);
+        ResponseEntity<LoginResponse> loginResponse = authService.login(loginRequest);
+
+        if (loginResponse.getStatusCode().is2xxSuccessful()) {
+
+            String token = loginResponse.getBody().getToken();
+
+            Cookie cookie = new Cookie("jwt", token);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(false);
+            cookie.setPath("/");
+            cookie.setMaxAge(60 * 60);
+
+            response.addCookie(cookie);
+        }
+
+        return loginResponse;
     }
-
 
 }
