@@ -65,7 +65,8 @@ backend/
 │   ├── application.properties
 │   ├── application-dev.properties
 │   └── application-prod.properties
-│
+    └── application-docker.properties
+│   
 ├── Dockerfile
 └── README.md  
 ##  Configuration Spring & Environnements
@@ -74,6 +75,7 @@ backend/
 -  configuration commune ->  `application.properties`
 -  DEV  -> `application-dev.properties`
 -  PROD -> `application-prod.properties`
+-  DOCKER -> `application-docker.properties`
 
 Le choix de l’environnement se fait via la variable : `SPRING_PROFILES_ACTIVE=dev | prod`
 
@@ -119,7 +121,7 @@ Hibernate en mode sécurisé :`docker compose -f docker-compose.prod.yml up -d`
 
 ### Lancer le backend SANS Docker
 
-DEV :  `mvn spring-boot:run -Dspring-boot.run.profiles=dev`
+DEV :  `mvn spring-boot:run`
 
 PROD :  `mvn spring-boot:run -Dspring-boot.run.profiles=prod`
 
