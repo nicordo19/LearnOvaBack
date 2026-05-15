@@ -1,14 +1,14 @@
 package rncp.backend.controller;
 
-import rncp.backend.dto.RegisterRequest ;
-import org.springframework.web.bind.annotation.*;
-import rncp.backend.entity.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import rncp.backend.dto.UserProfileResponse;
 import rncp.backend.sevice.UserService;
 
 @RestController
-
 @RequestMapping("/api/users")
-
 public class UserController {
 
     private final UserService userService;
@@ -18,13 +18,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
-    public User createUser(@RequestBody RegisterRequest request) {
-
-        return userService.createUser(request);
-    }
-    @GetMapping("/profile")
-    public String prifile(){
-        return "Accés autorisé";
+    @GetMapping("/me")
+    public UserProfileResponse getMyProfile(Authentication authentication) {
+        return userService.getCurrentUserProfile(authentication);
     }
 }

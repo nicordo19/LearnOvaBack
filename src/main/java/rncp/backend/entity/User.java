@@ -56,7 +56,7 @@ public class User {
         this.first_name = first_name;
     }
 
-    public String getLast_name(String lastName) {
+    public String getLast_name() {
         return last_name;
     }
 
