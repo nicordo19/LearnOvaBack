@@ -1,29 +1,33 @@
 package rncp.backend.controller;
+
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import rncp.backend.dto.LoginRequest;
 import rncp.backend.dto.LoginResponse;
-import rncp.backend.entity.User;
-import rncp.backend.sevice.AuthService ;
+import rncp.backend.dto.RegisterRequest;
+import rncp.backend.dto.UserProfileResponse;
+import rncp.backend.sevice.AuthService;
 
 @RestController
 @RequestMapping("api/auth")
-
 public class AuthController {
-//injection de dépendance
     private final AuthService authService;
 
     public AuthController(AuthService authService) {
         this.authService = authService;
-
     }
-// point d'entrée vers le back
+
+    @PostMapping("/register")
+    public ResponseEntity<UserProfileResponse> register(@RequestBody RegisterRequest request) {
+        UserProfileResponse createdUser = authService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(
@@ -47,5 +51,4 @@ public class AuthController {
 
         return loginResponse;
     }
-
 }
