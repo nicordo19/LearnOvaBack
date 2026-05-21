@@ -6,7 +6,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.filter.OncePerRequestFilter;
 import rncp.backend.entity.User;
 import rncp.backend.repository.UserRepository;
@@ -14,6 +16,7 @@ import rncp.backend.sevice.JwtService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -54,7 +57,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 //creation de structur d'objet Spring Security pour:
                 // utilisateur connecté + son été d'autentification;
                 //                                                                                    identifant/mot de passe, role
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                List<GrantedAuthority> authorities = new ArrayList<>();
+                String roleName = user.getRole() != null ? user.getRole().getRoleName() : null;
+
+                if ("PROFESSEUR".equalsIgnoreCase(roleName)) {
+                    authorities.add(new SimpleGrantedAuthority("ROLE_PROF"));
+                } else if ("ETUDIANT".equalsIgnoreCase(roleName)) {
+                    authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                }
+
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null, authorities);
 
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }

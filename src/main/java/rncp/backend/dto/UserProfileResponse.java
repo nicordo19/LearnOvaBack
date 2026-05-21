@@ -17,16 +17,24 @@ public class UserProfileResponse {
     private LocalDateTime createdAt;
 
     // renvois les information de l'utilisateur connecté
-    public static UserProfileResponse from(User user) {
-        UserProfileResponse response = new UserProfileResponse();
-        response.setId(user.getId());
-        response.setFirstName(user.getFirst_name());
-        response.setLastName(user.getLast_name());
-        response.setEmail(user.getEmail());
-        response.setProfession(user.getProfession());
-        response.setRole(extractRoleName(user.getRole()));
-        response.setCreatedAt(user.getCreatedAt());
-        return response;
+    public static UserProfileResponse from(User u) {
+        UserProfileResponse r = new UserProfileResponse();
+        r.setId(u.getId());
+        r.setFirstName(u.getFirst_name());
+        r.setLastName(u.getLast_name());
+        r.setEmail(u.getEmail());
+        r.setProfession(u.getProfession());
+
+        String backendRole = (u.getRole() != null) ? u.getRole().getRoleName() : null;
+        if (backendRole != null) {
+            // Normalise pour frontend (option)
+            if (backendRole.equalsIgnoreCase("PROFESSEUR")) r.setRole("ROLE_PROF");
+            else if (backendRole.equalsIgnoreCase("ETUDIANT")) r.setRole("ROLE_USER");
+            else r.setRole(backendRole);
+        } else {
+            r.setRole(null);
+        }
+        return r;
     }
     // verification de rol:  si null return le role-nom
     private static String extractRoleName(Role role) {
