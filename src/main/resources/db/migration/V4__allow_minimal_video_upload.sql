@@ -1,0 +1,4 @@
+ALTER TABLE video
+    ALTER COLUMN title DROP NOT NULL,
+    ALTER COLUMN user_id DROP NOT NULL,
+    ALTER COLUMN category_id DROP NOT NULL;
