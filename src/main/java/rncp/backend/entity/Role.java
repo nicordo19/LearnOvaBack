@@ -2,12 +2,18 @@ package rncp.backend.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "role")
 public class Role {
+
+    public Role() {
+    }
+
+    public Role(String roleName){
+        this.roleName = roleName;
+    }
     @Id
     @GeneratedValue
     private UUID id;

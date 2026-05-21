@@ -45,9 +45,10 @@ public class AuthService {
             throw new RuntimeException("Un utilisateur avec cet email existe deja");
         }
 
-        Role role = request.isEtudiant()
-                ? roleRepository.findByRoleName("ETUDIANT")
-                : roleRepository.findByRoleName("PROFESSEUR");
+        String wanted = request.isEtudiant() ? "ETUDIANT" : "PROFESSEUR";
+
+        Role role = roleRepository.findByRoleName(wanted)
+                .orElseGet(() -> roleRepository.save(new Role(wanted)));
 
         User user = new User();
         user.setRole(role);
