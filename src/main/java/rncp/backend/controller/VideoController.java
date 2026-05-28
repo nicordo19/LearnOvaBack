@@ -55,6 +55,11 @@ public class VideoController {
         return videoService.getAllVideos();
     }
 
+    @GetMapping("/api/videos/{id}")
+    public VideoResponse getVideoById(@PathVariable UUID id) {
+        return videoService.getVideoById(id);
+    }
+
     @PutMapping("/api/videos/{id}")
     public VideoResponse updateVideo(
             @PathVariable UUID id,

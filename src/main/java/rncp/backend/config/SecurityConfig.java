@@ -52,7 +52,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/logout").permitAll()
 
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/videos/my-videos").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/videos").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/videos/*").permitAll()
                         .requestMatchers(HttpMethod.POST, "/video/upload").hasRole("PROF")
                         .requestMatchers(HttpMethod.POST, "/api/videos/upload").hasRole("PROF")
                         .anyRequest().authenticated()

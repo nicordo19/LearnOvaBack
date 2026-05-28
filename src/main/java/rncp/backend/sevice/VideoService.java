@@ -60,6 +60,13 @@ public class VideoService {
                 .toList();
     }
 
+    public VideoResponse getVideoById(UUID id) {
+        Video video = videoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Video introuvable"));
+
+        return VideoResponse.from(video);
+    }
+
     public VideoResponse updateVideo(UUID id, User user, VideoUpdateRequest request) {
         Video video = videoRepository.findByIdAndUser(id, user)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Video introuvable"));
