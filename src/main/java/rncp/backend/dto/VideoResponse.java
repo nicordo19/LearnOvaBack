@@ -12,6 +12,8 @@ public class VideoResponse {
     private String url;
     private LocalDateTime createdAt;
     private String description;
+    private String userFirstName;
+    private String userLastName;
 
     public static VideoResponse from(Video video) {
         VideoResponse response = new VideoResponse();
@@ -20,6 +22,12 @@ public class VideoResponse {
         response.setUrl(video.getUrl());
         response.setCreatedAt(video.getPublishedAt());
         response.setDescription(video.getDescription());
+
+        if (video.getUser() != null) {
+            response.setUserFirstName(video.getUser().getFirst_name());
+            response.setUserLastName(video.getUser().getLast_name());
+        }
+
         return response;
     }
 
@@ -61,5 +69,21 @@ public class VideoResponse {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUserFirstName() {
+        return userFirstName;
+    }
+
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
+    public void setUserLastName(String userLastName) {
+        this.userLastName = userLastName;
     }
 }

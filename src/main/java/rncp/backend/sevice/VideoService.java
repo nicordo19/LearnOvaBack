@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import rncp.backend.dto.VideoResponse;
+import rncp.backend.dto.VideoUpdateRequest;
 import rncp.backend.dto.VideoUploadResponse;
 import rncp.backend.entity.User;
 import rncp.backend.entity.Video;
@@ -50,6 +51,23 @@ public class VideoService {
                 .stream()
                 .map(VideoResponse::from)
                 .toList();
+    }
+
+    public List<VideoResponse> getAllVideos() {
+        return videoRepository.findAllByOrderByPublishedAtDesc()
+                .stream()
+                .map(VideoResponse::from)
+                .toList();
+    }
+
+    public VideoResponse updateVideo(UUID id, User user, VideoUpdateRequest request) {
+        Video video = videoRepository.findByIdAndUser(id, user)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Video introuvable"));
+
+        video.setTitle(emptyToNull(request.getTitle()));
+        video.setDescription(emptyToNull(request.getDescription()));
+
+        return VideoResponse.from(videoRepository.save(video));
     }
 
     public void deleteVideo(UUID id, User user) {

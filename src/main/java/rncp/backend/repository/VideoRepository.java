@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface VideoRepository extends JpaRepository<Video, UUID> {
 
+    List<Video> findAllByOrderByPublishedAtDesc();
+
     List<Video> findByUserOrderByPublishedAtDesc(User user);
 
     Optional<Video> findByIdAndUser(UUID id, User user);
