@@ -10,7 +10,7 @@ import java.util.Map;
 
 
 @Service
-//creation de service Cloudinary
+//creation de service Cloudinaryker compose up
 public class CloudinaryService {
 
     //injection de dépendance cloudinary : on recuper l'ojet dans cloudinaryConfig
@@ -26,16 +26,20 @@ public class CloudinaryService {
     // la video temporairement  en memoir et c'est manipuler en Java
 
     public String uploadVideo(MultipartFile file){
+        Map uploadResult = uploadVideoWithDetails(file);
+        return uploadResult.get("secure_url").toString();
+    }
+
+    public Map uploadVideoWithDetails(MultipartFile file){
 
         try{
 
-            Map uplaodResult = cloudinary.uploader().upload(
+            return cloudinary.uploader().upload(
                     file.getBytes(),
                     ObjectUtils.asMap(
                             "resource_type", "video"
                     )
             );
-            return uplaodResult.get("secure_url").toString();
         }catch (IOException e){
             throw new RuntimeException("erreur lors de l'upload video");
         }
