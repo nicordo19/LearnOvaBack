@@ -53,10 +53,13 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/videos/my-videos").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/videos/liked").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/videos").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/videos/*").permitAll()
                         .requestMatchers(HttpMethod.POST, "/video/upload").hasRole("PROF")
                         .requestMatchers(HttpMethod.POST, "/api/videos/upload").hasRole("PROF")
+                        .requestMatchers(HttpMethod.POST, "/api/videos/*/like").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/videos/*/like").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

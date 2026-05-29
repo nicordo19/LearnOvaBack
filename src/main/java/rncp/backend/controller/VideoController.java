@@ -50,14 +50,32 @@ public class VideoController {
         return videoService.getMyVideos(user);
     }
 
+    @GetMapping("/api/videos/liked")
+    public List<VideoResponse> getLikedVideos(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return videoService.getLikedVideos(user);
+    }
+
     @GetMapping("/api/videos")
-    public List<VideoResponse> getAllVideos() {
-        return videoService.getAllVideos();
+    public List<VideoResponse> getAllVideos(Authentication authentication) {
+        return videoService.getAllVideos(getAuthenticatedUser(authentication));
     }
 
     @GetMapping("/api/videos/{id}")
-    public VideoResponse getVideoById(@PathVariable UUID id) {
-        return videoService.getVideoById(id);
+    public VideoResponse getVideoById(@PathVariable UUID id, Authentication authentication) {
+        return videoService.getVideoById(id, getAuthenticatedUser(authentication));
+    }
+
+    @PostMapping("/api/videos/{id}/like")
+    public VideoResponse likeVideo(@PathVariable UUID id, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return videoService.likeVideo(id, user);
+    }
+
+    @DeleteMapping("/api/videos/{id}/like")
+    public VideoResponse unlikeVideo(@PathVariable UUID id, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return videoService.unlikeVideo(id, user);
     }
 
     @PutMapping("/api/videos/{id}")
@@ -75,5 +93,13 @@ public class VideoController {
         User user = (User) authentication.getPrincipal();
         videoService.deleteVideo(id, user);
         return ResponseEntity.noContent().build();
+    }
+
+    private User getAuthenticatedUser(Authentication authentication) {
+        if (authentication == null || !(authentication.getPrincipal() instanceof User)) {
+            return null;
+        }
+
+        return (User) authentication.getPrincipal();
     }
 }

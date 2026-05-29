@@ -12,18 +12,28 @@ public class VideoResponse {
     private String url;
     private LocalDateTime createdAt;
     private String description;
+    private UUID ownerId;
     private String userFirstName;
     private String userLastName;
+    private boolean likedByCurrentUser;
+    private long likesCount;
 
     public static VideoResponse from(Video video) {
+        return from(video, false, 0);
+    }
+
+    public static VideoResponse from(Video video, boolean likedByCurrentUser, long likesCount) {
         VideoResponse response = new VideoResponse();
         response.setId(video.getId());
         response.setTitle(video.getTitle());
         response.setUrl(video.getUrl());
         response.setCreatedAt(video.getPublishedAt());
         response.setDescription(video.getDescription());
+        response.setLikedByCurrentUser(likedByCurrentUser);
+        response.setLikesCount(likesCount);
 
         if (video.getUser() != null) {
+            response.setOwnerId(video.getUser().getId());
             response.setUserFirstName(video.getUser().getFirst_name());
             response.setUserLastName(video.getUser().getLast_name());
         }
@@ -71,6 +81,14 @@ public class VideoResponse {
         this.description = description;
     }
 
+    public UUID getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(UUID ownerId) {
+        this.ownerId = ownerId;
+    }
+
     public String getUserFirstName() {
         return userFirstName;
     }
@@ -85,5 +103,21 @@ public class VideoResponse {
 
     public void setUserLastName(String userLastName) {
         this.userLastName = userLastName;
+    }
+
+    public boolean isLikedByCurrentUser() {
+        return likedByCurrentUser;
+    }
+
+    public void setLikedByCurrentUser(boolean likedByCurrentUser) {
+        this.likedByCurrentUser = likedByCurrentUser;
+    }
+
+    public long getLikesCount() {
+        return likesCount;
+    }
+
+    public void setLikesCount(long likesCount) {
+        this.likesCount = likesCount;
     }
 }
