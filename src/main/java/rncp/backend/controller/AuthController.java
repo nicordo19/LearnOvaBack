@@ -14,7 +14,7 @@ import rncp.backend.dto.LoginRequest;
 import rncp.backend.dto.LoginResponse;
 import rncp.backend.dto.RegisterRequest;
 import rncp.backend.dto.UserProfileResponse;
-import rncp.backend.sevice.AuthService;
+import rncp.backend.service.AuthService;
 
 import java.util.Map;
 

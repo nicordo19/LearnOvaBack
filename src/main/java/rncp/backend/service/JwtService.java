@@ -1,4 +1,4 @@
-package rncp.backend.sevice;
+package rncp.backend.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

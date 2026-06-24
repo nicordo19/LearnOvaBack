@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rncp.backend.dto.UserProfileResponse;
-import rncp.backend.sevice.UserService;
+import rncp.backend.service.UserService;
 
 @RestController
 @RequestMapping("/api/users")

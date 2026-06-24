@@ -1,4 +1,4 @@
-package rncp.backend.sevice;
+package rncp.backend.service;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rncp.backend.dto.CreateVideoCommentRequest;
 import rncp.backend.dto.VideoCommentResponse;
 import rncp.backend.entity.User;
-import rncp.backend.sevice.VideoCommentService;
+import rncp.backend.service.VideoCommentService;
 
 import java.util.List;
 import java.util.UUID;

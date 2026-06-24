@@ -15,7 +15,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import rncp.backend.repository.UserRepository;
 import rncp.backend.security.JwtAuthenticationFilter;
-import rncp.backend.sevice.JwtService;
+import rncp.backend.service.JwtService;
 
 import java.util.List;
 
