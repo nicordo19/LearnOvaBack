@@ -1,4 +1,4 @@
-package rncp.backend.sevice;
+package rncp.backend.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;

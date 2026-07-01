@@ -1,4 +1,4 @@
-package rncp.backend.sevice;
+package rncp.backend.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 
 @Service
-//creation de service Cloudinaryker compose up
+//creation de service Cloudinary
 public class CloudinaryService {
 
     //injection de dépendance cloudinary : on recuper l'ojet dans cloudinaryConfig

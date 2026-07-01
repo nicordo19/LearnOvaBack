@@ -13,6 +13,10 @@ public  class LoginResponse {
         return token;
     }
 
+    public void setToken(){
+        this.token = token ;
+    }
+
     public String getMessage() {
         return message;
     }

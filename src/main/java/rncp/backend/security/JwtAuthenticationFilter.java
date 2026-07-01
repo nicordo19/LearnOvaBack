@@ -12,7 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.filter.OncePerRequestFilter;
 import rncp.backend.entity.User;
 import rncp.backend.repository.UserRepository;
-import rncp.backend.sevice.JwtService;
+import rncp.backend.service.JwtService;
 
 import java.io.IOException;
 import java.util.ArrayList;

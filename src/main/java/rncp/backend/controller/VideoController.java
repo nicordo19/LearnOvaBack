@@ -15,7 +15,7 @@ import rncp.backend.dto.VideoResponse;
 import rncp.backend.dto.VideoUpdateRequest;
 import rncp.backend.dto.VideoUploadResponse;
 import rncp.backend.entity.User;
-import rncp.backend.sevice.VideoService;
+import rncp.backend.service.VideoService;
 
 import java.util.List;
 import java.util.UUID;
